@@ -32,8 +32,6 @@ Node* add_purchased_stonks(Node* node_to_append, string stock_name, string no_of
     return new_node;
 }
 
-
-
 void print_nodes(void){
     current_pointer = head;
     while(current_pointer != NULL){
