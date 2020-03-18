@@ -39,19 +39,20 @@ int main(void){
                 head->item[2] = stock_price;
                 head->next = NULL;
                 stock_list[0] = head;
-                cout << stock_list[0]->item[2] << endl;
                 stock_current_index++;
-                cout << stock_current_index << endl;
             }else{
                 cout << "Enter number of stocks purchased: ";
                 cin >> stock_purchased;
                 cout << "Enter stock price: ";
                 cin >> stock_price;
-                add_purchased_stonks(stock_list[stock_current_index - 1], stock_name, stock_purchased, stock_price, stock_current_index);
+                stock_list[stock_current_index] = add_purchased_stonks(stock_list[stock_current_index - 1], stock_name, stock_purchased, stock_price, stock_current_index);;
                 stock_current_index += 1;
             }
         }else if(selection == 2){
-            print_nodes();
+            int shares;
+            cout << "Enter number of shares to calculate: ";
+            cin >> shares;
+            cout << fifo_lifo_accounting(shares) << endl;
         }else{
             cout << "Invalid selection" << endl;
         }
