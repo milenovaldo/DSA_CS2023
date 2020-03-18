@@ -6,25 +6,33 @@ https://github.com/sunnyjovita
 */
 
 #include <iostream>
-#include "headers/stonks.h"
+#include "headers/stonks.h" //includes the required headers
 
 using namespace std;
 
+/* Main program */
 int main(void){
 
     int stock_current_index = 0;
 
     while(1){
         cout <<
+        "CTRL + C to exit the program anytime (BIG WOW)\n" <<
         "1) Enter a new stonk.\n" <<
-        "2) Find LIFO and FIFO price of a stonk.\n" <<
+        "2) Find LIFO and FIFO price of the stock.\n" <<
         "Select an option: ";
 
+        /* Asks for selection (Main menu) */
         int selection;
         cin >> selection;
 
         if (selection == 1){
             string stock_name, stock_purchased, stock_price;
+
+            /* 
+            This part of the program asks you to input a stock name once
+            then you can add multiple different stock purchases for the specified stock
+            */
             if(stock_current_index == 0){
                 cout << 
                 "Adding new stocks. \n" <<
@@ -49,12 +57,16 @@ int main(void){
                 stock_current_index += 1;
             }
         }else if(selection == 2){
+            /*
+            Selecting this option will call the fifo_lifo_accounting function from stonks.h
+            which will calculate and print out the FIFO and LIFO results.
+            */
             int shares;
             cout << "Enter number of shares to calculate: ";
             cin >> shares;
-            cout << fifo_lifo_accounting(shares) << endl;
+            fifo_lifo_accounting(shares);
         }else{
-            cout << "Invalid selection" << endl;
+            cout << "Invalid selection" << endl; //Any other selection would be invalid
         }
     }
     return 0;

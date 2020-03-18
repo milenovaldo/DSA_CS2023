@@ -20,6 +20,11 @@ Node* head = new Node;
 
 Node* stock_list[] = {};
 
+/*
+Appends new nodes in the linked list.
+It accepts numerical strings as arguements that will later be converted to 
+integer and float values
+*/
 Node* add_purchased_stonks(Node* node_to_append, string stock_name, string no_of_stocks, string stock_price, int curr_index){
     Node* new_node = new Node;
 
@@ -33,20 +38,26 @@ Node* add_purchased_stonks(Node* node_to_append, string stock_name, string no_of
     return new_node;
 }
 
+/*
+Returns the number of nodes in the linked list
+*/
 int count_nodes(void){
     current_pointer = head;
     int counter = 0;
     while(current_pointer != NULL){
-        cout << "[" << current_pointer->item[2] << "|" << current_pointer->next << "]----->";
+        // cout << "[" << current_pointer->item[2] << "|" << current_pointer->next << "]----->";
         current_pointer = current_pointer->next;
         counter++;
     }
-    cout << "NULL" << endl;
+    // cout << "NULL" << endl;
     current_pointer = head;
     return counter;
 }
 
-float fifo_lifo_accounting(int number_of_shares){
+/*
+Where most of the calculation process happens
+*/
+void fifo_lifo_accounting(int number_of_shares){
     
     int max_count = count_nodes();
     int noOfPurchase[max_count] = {};
@@ -56,9 +67,10 @@ float fifo_lifo_accounting(int number_of_shares){
 
     int shares_to_calculate = number_of_shares;
 
-    for(int index = 0; index < max_count; index++){ //Change to for loop
-
-        cout << index << endl;
+    /* 
+    Loop that links the indexes of purchases and prices
+    */
+    for(int index = 0; index < max_count; index++){ 
 
         purchases = stock_list[index]->item[1];
         prices = stock_list[index]->item[2];
@@ -82,14 +94,34 @@ float fifo_lifo_accounting(int number_of_shares){
     int to_divide = number_of_shares;
     int index = 0;
     
+    // FIFO
     while(shares_to_calculate != 0){
         if(noOfPurchase[index] > shares_to_calculate){
             total_price = total_price + (shares_to_calculate * price[index]);
-            return total_price/to_divide;
+            cout << "FIFO result >> " << total_price/to_divide << endl;
+            break;
         }else{
             total_price = total_price + (noOfPurchase[index] * price[index]);
             shares_to_calculate = shares_to_calculate - noOfPurchase[index];
             index++;
         }
     }
+
+    index = max_count - 1;
+    cout << index << endl;
+    total_price = 0;
+    shares_to_calculate = number_of_shares;
+    //LIFO
+    while(shares_to_calculate != 0){
+        if(noOfPurchase[index] > shares_to_calculate){
+            total_price = total_price + (shares_to_calculate * price[index]);
+            cout << "LIFO result >> " << total_price/to_divide << endl;
+            return;
+        }else{
+            total_price = total_price + (noOfPurchase[index] * price[index]);
+            shares_to_calculate = shares_to_calculate - noOfPurchase[index];
+            index--;
+        }
+    }
+
 }
